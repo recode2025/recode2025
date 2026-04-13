@@ -1,36 +1,24 @@
-name: Refresh README (No-History Mode)
+name: Refresh README
 
 on:
+  workflow_dispatch: # 确保这一行顶格写（在 on 下一级）
   schedule:
-    - cron: '*/15 * * * *' # 建议不要太频繁，15-30分钟较稳妥
-  workflow_dispatch: # 保留手动触发按钮
+    - cron: '*/15 * * * *'
 
 jobs:
   refresh:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
-          fetch-depth: 1 # 只拉取最近一次提交即可
-
-      - name: Update Image Parameter
+          fetch-depth: 1
+      - name: Update
         run: |
-          # 使用 date 生成时间戳，确保 README 内容发生变化
           sed -i "s/v=[0-9]*/v=$(date +%s)/g" README.md
-
-      - name: Force Push Update
-        run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          
           git add README.md
-          
-          # 如果内容没变，git commit 会报错，用 || true 略过
-          git commit --amend -m "chore: 🌸 每日随机二次元掉落 [skip ci]" || git commit -m "chore: 🌸 每日随机二次元掉落 [skip ci]"
-          
-          # 强制推送
+          git commit --amend -m "refresh" || git commit -m "refresh"
           git push --force origin main
