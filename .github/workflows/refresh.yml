@@ -1,24 +1,24 @@
 name: Refresh README
 
 on:
-  workflow_dispatch: # 确保这一行顶格写（在 on 下一级）
+  workflow_dispatch:
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: '0 * * * *'  # 每小时一次（更稳定）
 
 jobs:
   refresh:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
+
       - name: Update
         run: |
           sed -i "s/v=[0-9]*/v=$(date +%s)/g" README.md
-          git config --local user.name "github-actions[bot]"
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git commit --amend -m "refresh" || git commit -m "refresh"
-          git push --force origin main
+          git commit -m "refresh" || echo "no changes"
+          git push
