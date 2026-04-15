@@ -3,7 +3,7 @@
 
 # 🌸 Konnichiwa! 欢迎来到我的二次元结界
 
-<img src="https://www.loliapi.com/acg?v=1776247757"></img>
+<img src="https://www.loliapi.com/acg?v=1776253836"></img>
 
 
 
@@ -42,6 +42,6 @@
 ### 🎨 今日份的随机掉落 (Random ACG Art)
 
 <div align="center">
-	<img src="https://www.loliapi.com/bg?v=1776247757" width="400" alt="Random ACG 1"/>
+	<img src="https://www.loliapi.com/bg?v=1776253836" width="400" alt="Random ACG 1"/>
 </div>
 
